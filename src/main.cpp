@@ -42,7 +42,7 @@ void loop()
 
 void colorWipe(uint32_t c, unsigned long wait, unsigned long current_time)
 {
-  static uint8_t i = 2;
+  static uint8_t i = 0;
   static unsigned long last_loop_time = 0;
   if ((current_time - last_loop_time) < wait)
   {
@@ -52,13 +52,10 @@ void colorWipe(uint32_t c, unsigned long wait, unsigned long current_time)
   i++;
   if (i > pixels.numPixels())
   {
-    i = 2;
+    i = 0;
   }
   pixels.clear();
-  for (uint8_t j = i; j > (i - 2); j--)
-  {
-    pixels.setPixelColor(j, c);
-  }
+  pixels.setPixelColor(i, c);
 
   pixels.show();
 }
