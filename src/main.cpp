@@ -1,9 +1,11 @@
 #include <Arduino.h>
 
 #include "my_led_wrapper.h"
+#include "chirp_tones.h"
+
+
 #define LED_LOOP_DELAY 500
 
-void chirpTones(unsigned long current_time);
 
 unsigned long last_led_loop_time = 0;
 
@@ -36,19 +38,3 @@ void loop()
   chirpTones(current_time);
 }
 
-void chirpTones(unsigned long current_time){
-  static unsigned long last_loop_time = 0;
-  static uint16_t count = 0;
-  const uint16_t steps = 80;
-  if ((current_time - last_loop_time) < 6)
-  {
-    return;
-  }
-  last_loop_time = current_time;
-  count++;
-  if (count > steps)
-  {
-    count = 0;
-  }
-  tone(A0, count * 25+20);
-}
