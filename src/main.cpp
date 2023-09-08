@@ -1,13 +1,8 @@
 #include <Arduino.h>
-#include <Adafruit_NeoPixel.h>
+
+#include "my_led_wrapper.h"
 
 #define LED_LOOP_DELAY 500
-
-#define NEOPIXEL_LOOP_DELAY 1500
-#define NEOPIXEL_COUNT 10
-#define NEOPIXEL_PIN 8
-
-void colorWipe(uint32_t c, unsigned long wait, unsigned long current_time);
 
 unsigned long last_led_loop_time = 0;
 unsigned long last_neopixel_loop_time = 0;
@@ -40,22 +35,3 @@ void loop()
   colorWipe(pixels.Color(0, 15, 25), 90, current_time); // Red
 }
 
-void colorWipe(uint32_t c, unsigned long wait, unsigned long current_time)
-{
-  static uint8_t i = 0;
-  static unsigned long last_loop_time = 0;
-  if ((current_time - last_loop_time) < wait)
-  {
-    return;
-  }
-  last_loop_time = current_time;
-  i++;
-  if (i > pixels.numPixels())
-  {
-    i = 0;
-  }
-  pixels.clear();
-  pixels.setPixelColor(i, c);
-
-  pixels.show();
-}
